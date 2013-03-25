@@ -21,6 +21,8 @@
 
 @protocol WSAssetPickerControllerDelegate;
 
+@class ALAsset;
+
 @interface WSAssetPickerController : UINavigationController
 
 @property (nonatomic, readonly) NSArray *selectedAssets;
@@ -38,6 +40,8 @@
 - (void)assetPickerControllerDidCancel:(WSAssetPickerController *)sender;
 
 // Called when the done button is tapped.
-- (void)assetPickerController:(WSAssetPickerController *)sender didFinishPickingMediaWithAssets:(NSArray *)assets;
+//- (void)assetPickerController:(WSAssetPickerController *)sender didFinishPickingMediaWithAssets:(NSArray *)assets;
+
+- (void)assetPickerController:(WSAssetPickerController *)sender didSelectAsset:(ALAsset *)asset;
 
 @end

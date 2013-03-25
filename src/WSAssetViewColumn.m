@@ -20,16 +20,17 @@
 #import "WSAssetViewColumn.h"
 #import "WSAssetWrapper.h"
 
+/*
 @interface WSAssetViewColumn ()
 @property (nonatomic, weak) UIImageView *selectedView;
 @end
-
+*/
 
 @implementation WSAssetViewColumn
 
 @synthesize column = _column;
 @synthesize selected = _selected;
-@synthesize selectedView = _selectedView;
+//@synthesize selectedView = _selectedView;
 
 
 #pragma mark - Initialization
@@ -73,11 +74,12 @@
         [self didChangeValueForKey:@"isSelected"];
         
         // Update the selectedView.
-        self.selectedView.hidden = !_selected;
+        //self.selectedView.hidden = !_selected;
     }
     [self setNeedsDisplay];
 }
 
+/*
 #define SELECTED_IMAGE @"WSAssetViewSelectionIndicator.png"
 
 - (UIImageView *)selectedView
@@ -93,7 +95,7 @@
     }
     return _selectedView;
 }
-
+*/
 
 #pragma mark - Actions
 
@@ -106,4 +108,5 @@
         self.selected = !self.isSelected;
     }
 }
+
 @end

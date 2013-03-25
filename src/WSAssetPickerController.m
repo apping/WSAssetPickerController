@@ -47,9 +47,8 @@
     albumTableViewController.assetPickerState = self.assetPickerState;
     
     if ((self = [super initWithRootViewController:albumTableViewController])) {
-        
-        self.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-        self.toolbar.barStyle = UIBarStyleBlackTranslucent;
+        //self.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+        //self.toolbar.barStyle = UIBarStyleBlackTranslucent;
         self.delegate = delegate;
     }
     
@@ -106,7 +105,10 @@
             }
         } else if (WSAssetPickerStatePickingDone == self.assetPickerState.state) {
             if ([delegate conformsToProtocol:@protocol(WSAssetPickerControllerDelegate)]) {
-                [delegate assetPickerController:self didFinishPickingMediaWithAssets:self.assetPickerState.selectedAssets];
+                //[delegate assetPickerController:self didFinishPickingMediaWithAssets:self.assetPickerState.selectedAssets];
+                
+                if([delegate respondsToSelector:@selector(assetPickerController:didSelectAsset:)])
+                    [delegate assetPickerController:self didSelectAsset:self.assetPickerState.selectedAsset];
             }
         }
     } else if ([SELECTED_COUNT_KEY isEqualToString:keyPath]) {

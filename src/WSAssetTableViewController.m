@@ -72,10 +72,11 @@
 {
     self.navigationItem.title = @"Loading";
     
+    /*
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
                                                                                            target:self 
                                                                                            action:@selector(doneButtonAction:)];
-    
+    */
     
     // TableView configuration.
     self.tableView.contentInset = TABLEVIEW_INSETS;
@@ -159,13 +160,14 @@
     [self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.5];
 }
 
+/*
 #pragma mark - Actions
 
 - (void)doneButtonAction:(id)sender
 {     
     self.assetPickerState.state = WSAssetPickerStatePickingDone;
 }
-
+*/
 
 #pragma mark - WSAssetsTableViewCellDelegate Methods
 
@@ -177,10 +179,15 @@
     NSUInteger assetIndex = indexPath.row * self.assetsPerRow + column;
     
     WSAssetWrapper *assetWrapper = [self.fetchedAssets objectAtIndex:assetIndex];
+    [self.assetPickerState setSelectedAsset:assetWrapper.asset];
+    [self.assetPickerState setState:WSAssetPickerStatePickingDone];
+    
+    /*
     assetWrapper.selected = selected;
     
     // Update the state object's selectedAssets.
     [self.assetPickerState changeSelectionState:selected forAsset:assetWrapper.asset];
+    */
 }
 
 
