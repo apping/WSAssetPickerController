@@ -19,17 +19,18 @@
 
 #import "WSAssetViewColumn.h"
 #import "WSAssetWrapper.h"
+#import "UIImage+Tint.h"
 
-/*
 @interface WSAssetViewColumn ()
-@property (nonatomic, weak) UIImageView *selectedView;
+//@property (nonatomic, weak) UIImageView *selectedView;
+@property (nonatomic, strong) UIImageView *assetImageView;
 @end
-*/
 
 @implementation WSAssetViewColumn
 
 @synthesize column = _column;
 @synthesize selected = _selected;
+@synthesize assetImageView = _assetImageView;
 //@synthesize selectedView = _selectedView;
 
 
@@ -53,10 +54,10 @@
         [self addGestureRecognizer:tapGestureRecognizer];
         
         // Add the photo thumbnail.
-        UIImageView *assetImageView = [[UIImageView alloc] initWithFrame:ASSET_VIEW_FRAME];
-        assetImageView.contentMode = UIViewContentModeScaleToFill;
-        assetImageView.image = thumbnail;
-        [self addSubview:assetImageView];
+        self.assetImageView = [[UIImageView alloc] initWithFrame:ASSET_VIEW_FRAME];
+        self.assetImageView.contentMode = UIViewContentModeScaleToFill;
+        self.assetImageView.image = thumbnail;
+        [self addSubview:self.assetImageView];
     }
     return self;
 }
@@ -74,7 +75,8 @@
         [self didChangeValueForKey:@"isSelected"];
         
         // Update the selectedView.
-        //self.selectedView.hidden = !_selected;
+        if(selected)
+            [self.assetImageView setImage:[self.assetImageView.image tintedImageUsingColor:[UIColor colorWithWhite:0.0f alpha:0.3f]]];
     }
     [self setNeedsDisplay];
 }
