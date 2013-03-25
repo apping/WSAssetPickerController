@@ -101,7 +101,7 @@
 
 - (NSInteger)assetsPerRow
 {
-    return MAX(1, (NSInteger)floorf(self.tableView.contentSize.width / ASSET_WIDTH_WITH_PADDING));
+    return (NSInteger)floorf(self.tableView.contentSize.width / ASSET_WIDTH_WITH_PADDING);
 }
 
 #pragma mark - Rotation
@@ -195,6 +195,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if(self.assetsPerRow == 0)
+        return 0;
+    
     return (self.fetchedAssets.count + self.assetsPerRow - 1) / self.assetsPerRow;
 }
 
