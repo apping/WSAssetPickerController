@@ -21,10 +21,9 @@
 #import "WSAssetPickerState.h"
 #import "WSAssetTableViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-
+#import "ALAssetsLibrary+Default.h"
 
 @interface WSAlbumTableViewController ()
-@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
 @property (nonatomic, strong) NSMutableArray *assetGroups; // Model (all groups of assets).
 @end
 
@@ -32,19 +31,10 @@
 @implementation WSAlbumTableViewController
 
 @synthesize assetPickerState = _assetPickerState;
-@synthesize assetsLibrary = _assetsLibrary;
 @synthesize assetGroups = _assetGroups;
 
 
 #pragma mark - Getters 
-
-- (ALAssetsLibrary *)assetsLibrary
-{
-    if (!_assetsLibrary) {
-        _assetsLibrary = [[ALAssetsLibrary alloc] init];
-    }
-    return _assetsLibrary;
-}
 
 - (NSMutableArray *)assetGroups
 {
@@ -72,19 +62,18 @@
 {
     [super viewDidLoad];
 
-    self.navigationItem.title = @"Loading…";
+    self.navigationItem.title = NSLocalizedString(@"Loading…", nil);
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel 
                                                                                            target:self 
                                                                                            action:@selector(cancelButtonAction:)];
     
-    [self.assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-        
+    [[ALAssetsLibrary defaultLibrary] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         // If group is nil, the end has been reached.
         if (group == nil) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.navigationItem.title = @"Albums";
+                self.navigationItem.title = NSLocalizedString(@"Albums", nil);
             });
             return;
         }
